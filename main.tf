@@ -7,15 +7,18 @@ provider "aws" {
 ## VPC selection, needed for subnet_ids
 data "aws_vpc" "default" {
   default		= true
+  owners = ["self"]
 }
 
 ## Subnet_ids selection
 data "aws_subnet_ids" "all" {
   vpc_id 		= "${data.aws_vpc.default.id}"
+  owners = ["self"]
 }
 
 ## EC2 instance specification
 data "aws_ami" "ubuntu_linux" {
+  owners = ["self"]
   filter {
     name		= "image-id"
     values		= ["ami-03f0fd1a2ba530e75"]
